@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    container_name: php_practice
+    working_dir: ${HOME}/src
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+      args:
+        - USERNAME=${USER}
+        - USER_UID=${USER_UID}
+        - USER_GID=${USER_GID}
+    volumes:
+      - ./src:${HOME}/src
+    ports:
+      - '80:80'
+    # command: bash -c "chmod -R 777 "
+    tty: true
+
+    # depends_on:
+    #   - db
+
+  # db:
+  #   build:
+  #     context: ./docker/mysql
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./docker/mysql/data:/var/lib/mysql
+  #   ports:
+  #     - '3306:3306'
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=pass
